@@ -1,5 +1,7 @@
 # vue-todo
 
+# Vue + Vuetify + Axios
+
 ## Project setup
 ```
 npm install
