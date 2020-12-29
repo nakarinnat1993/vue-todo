@@ -6,7 +6,7 @@
       <todo-add @onSubmitTodo="addTitle"/>
 
       <!-- Todo list -->
-      <TodoList :todos="todos"/>
+      <TodoList @onRemove="removeTitle" :todos="todos"/>
 
     </v-container>
   </div>
@@ -34,14 +34,15 @@ export default {
     };
   },
   methods: {
-    addTitle(value) {
-      this.todos.push({
-        id: Math.random,
-        title: value,
-        completed: false,
-      });
-      this.titleInput = "";
+    addTitle(task) {
+      this.todos.push(task);
     },
+    removeTitle(id){
+      if(confirm("Are you sure ?")){
+        this.todos = this.todos.filter(item => item.id !== id)
+      }
+
+    }
   },
 };
 </script>

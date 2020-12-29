@@ -10,9 +10,9 @@
             >
               <v-col cols="12" class="d-flex flex-row align-center pa-0">
                 <v-checkbox class="mr-2" v-model="value" value="value"></v-checkbox>
-                <span>{{ item.title }}</span>
+                <span>{{ item.title }} </span>
                 <v-spacer></v-spacer>
-                <v-btn color="error">x</v-btn>
+                <v-btn color="error" @click="$emit('onRemove',item.id)">x</v-btn>
               </v-col>
               <v-col cols="12"><v-divider></v-divider></v-col>
             </v-row>

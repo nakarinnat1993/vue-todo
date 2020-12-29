@@ -6,6 +6,7 @@
           name="name"
           label="Title"
           id="id"
+          @keyup.enter="addTitle"
           v-model="titleInput"
         ></v-text-field>
       </v-col>
@@ -17,18 +18,27 @@
 </template>
 
 <script>
+import { v4 as uuidv4 } from "uuid";
+
 export default {
   name: "TodoAdd",
   methods: {
     addTitle() {
-      this.$emit("onSubmitTodo", this.titleInput);
+      // console.log(uuidv4());
+      let task = {
+        id:uuidv4(),
+        title:this.titleInput,
+        completed:false
+      }
+      // alert(task)
+      this.$emit("onSubmitTodo", task);
       this.titleInput = "";
     },
   },
   data() {
     return {
-      titleInput:""
-    }
+      titleInput: "",
+    };
   },
 };
 </script>
