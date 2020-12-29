@@ -6,7 +6,7 @@
       <todo-add @onSubmitTodo="addTitle" />
 
       <!-- Todo list -->
-      <TodoList @onRemove="removeTitle" :todos="todos" />
+      <TodoList @onRemove="removeTitle" :todos="todos | reversed" />
     </v-container>
   </div>
 </template>
@@ -37,6 +37,16 @@ export default {
   async mounted() {
     let result = await axios.get("https://jsonplaceholder.typicode.com/todos");
     this.todos = result.data;
+  },
+  filters:{
+    reversed(value){
+      return value.slice().reverse()
+    }
+  },
+  computed:{
+    reverseTodo(){
+      return this.todos.slice().reverse()
+    }
   },
   methods: {
     async addTitle(task) {
