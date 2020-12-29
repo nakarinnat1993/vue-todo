@@ -2,49 +2,27 @@
   <div class="home">
     <h1>This is my Home</h1>
     <v-container>
-      <v-row>
-        <v-col cols="10">
-          <v-text-field
-            name="name"
-            label="Title"
-            id="id"
-            v-model="titleInput"
-          ></v-text-field>
-        </v-col>
-        <v-col cols="2">
-          <v-btn block color="success" @click="addTitle">Add</v-btn>
-        </v-col>
-      </v-row>
+      <!-- Todo add -->
+      <todo-add @onSubmitTodo="addTitle"/>
 
-      <v-card>
-        <v-card-title primary-title>
-          <v-container>
-            <v-row
-              class="d-flex flex-row align-center"
-              v-for="(item, index) in todos"
-              :key="index"
-            >
-              <v-col cols="12" class="d-flex flex-row align-center">
-                <v-checkbox v-model="value" value="value"></v-checkbox>
-                <span>{{ item.title }}</span>
-                <v-spacer></v-spacer>
-                <v-btn color="error">x</v-btn>
-              </v-col>
-              <v-col cols="12"><v-divider></v-divider></v-col>
-            </v-row>
-          </v-container>
-        </v-card-title>
-      </v-card>
+      <!-- Todo list -->
+      <TodoList :todos="todos"/>
+
     </v-container>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
+import TodoList from "@/components/TodoList.vue"
+import TodoAdd from "@/components/TodoAdd.vue"
 
 export default {
   name: "Home",
-  components: {},
+  components: {
+    TodoList,
+    TodoAdd
+  },
   data() {
     return {
       titleInput: "",
@@ -56,10 +34,10 @@ export default {
     };
   },
   methods: {
-    addTitle() {
+    addTitle(value) {
       this.todos.push({
         id: Math.random,
-        title: this.titleInput,
+        title: value,
         completed: false,
       });
       this.titleInput = "";
