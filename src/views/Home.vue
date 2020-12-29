@@ -38,25 +38,36 @@ export default {
     let result = await axios.get("https://jsonplaceholder.typicode.com/todos");
     this.todos = result.data;
   },
-  filters:{
-    reversed(value){
-      return value.slice().reverse()
-    }
+  filters: {
+    reversed(value) {
+      return value.slice().reverse();
+    },
   },
-  computed:{
-    reverseTodo(){
-      return this.todos.slice().reverse()
-    }
+  computed: {
+    reverseTodo() {
+      return this.todos.slice().reverse();
+    },
   },
   methods: {
     async addTitle(task) {
-      let result = await axios.post("https://jsonplaceholder.typicode.com/todos", task);
+      let result = await axios.post(
+        "https://jsonplaceholder.typicode.com/todos",
+        task
+      );
       // alert(JSON.stringify(result.data));
       this.todos.push(result.data);
     },
     removeTitle(id) {
       if (confirm("Are you sure ?")) {
-        this.todos = this.todos.filter((item) => item.id !== id);
+        axios
+          .delete("https://jsonplaceholder.typicode.com/todos/" + id)
+          .then((result) => {
+            console.log(JSON.stringify(result.data));
+            this.todos = this.todos.filter((item) => item.id !== id);
+          })
+          .catch((error) => {
+            alert(error);
+          });
       }
     },
   },
